@@ -1,14 +1,27 @@
 #!/usr/bin/env bash
 
 function move_output_to_top_dir() {
-	if [ -f bl30.bin ]
+
+	case ${soc_dir} in
+		sc2)
+			SOC="32"
+			;;
+		t7)
+			SOC="36"
+			;;
+		s4)
+			SOC="37"
+			;;
+	esac
+
+	if [ -f "${1}_${SOC}_bl30.bin" ]
 	then
-		rm bl30.bin
+		rm "${1}_${SOC}_bl30.bin"
 	fi
 
 	if [ -f demos/amlogic/${arch_dir}/${soc_dir}/${board}/gcc/RTOSDemo.bin ]
 	then
-		cp demos/amlogic/${arch_dir}/${soc_dir}/${board}/gcc/RTOSDemo.bin ./bl30.bin
+		mv demos/amlogic/${arch_dir}/${soc_dir}/${board}/gcc/RTOSDemo.bin ./${1}_${SOC}_bl30.bin
 	fi
 }
 
@@ -26,4 +39,4 @@ function coding_style_check() {
 
 source scripts/amlogic/mk.sh $1
 coding_style_check
-move_output_to_top_dir
+move_output_to_top_dir $1
