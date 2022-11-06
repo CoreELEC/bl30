@@ -189,16 +189,18 @@ void str_power_off(int shutdown_flag)
 
 	shutdown_flag = shutdown_flag;
 	/***power off vdd_cpu***/
-	ret = xGpioSetDir(GPIO_TEST_N,GPIO_DIR_OUT);
-	if (ret < 0) {
-		printf("vdd_cpu_b set gpio dir fail\n");
-		return;
-	}
+	if (get_USB_Power_flag() == 0) {
+		ret = xGpioSetDir(GPIO_TEST_N,GPIO_DIR_OUT);
+		if (ret < 0) {
+			printf("vdd_cpu_b set gpio dir fail\n");
+			return;
+		}
 
-	ret= xGpioSetValue(GPIO_TEST_N,GPIO_LEVEL_LOW);
-	if (ret < 0) {
-		printf("vdd_cpu_b set gpio val fail\n");
-		return;
+		ret= xGpioSetValue(GPIO_TEST_N,GPIO_LEVEL_LOW);
+		if (ret < 0) {
+			printf("vdd_cpu_b set gpio val fail\n");
+			return;
+		}
 	}
 
 	/***power off vdd_cpu***/
@@ -216,17 +218,19 @@ void str_power_off(int shutdown_flag)
 
 	printf("vdd_cpu off\n");
 	/***power off vcc_5v***/
-	ret = xGpioSetDir(GPIOH_1,GPIO_DIR_OUT);
-	if (ret < 0) {
-		printf("vcc_5v set gpio dir fail\n");
-		return;
-	}
+	if (get_USB_Power_flag() == 0) {
+		ret = xGpioSetDir(GPIOH_1,GPIO_DIR_OUT);
+		if (ret < 0) {
+			printf("vcc_5v set gpio dir fail\n");
+			return;
+		}
 
-	ret= xGpioSetValue(GPIOH_1,GPIO_LEVEL_LOW);
-	if (ret < 0) {
-		printf("vcc_5v set gpio val fail\n");
-		return;
-	}
+		ret= xGpioSetValue(GPIOH_1,GPIO_LEVEL_LOW);
+		if (ret < 0) {
+			printf("vcc_5v set gpio val fail\n");
+			return;
+		}
 
-	printf("vcc_5v off\n");
+		printf("vcc_5v off\n");
+	}
 }
