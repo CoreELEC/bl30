@@ -36,7 +36,6 @@ function coding_style_check() {
 		chmod +x .git/hooks/pre-commit
 	fi
 }
-
-source scripts/amlogic/mk.sh $1
+source scripts/amlogic/mk.sh $1 $2
 coding_style_check
 move_output_to_top_dir $1

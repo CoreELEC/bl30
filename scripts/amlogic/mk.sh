@@ -20,12 +20,16 @@ fi
 
 board=$1
 shift
+soc_dir=$1
+shift
 other_args=$*
 if [ "${other_args}" == "" ]; then
 	other_args=all
 fi
 arch_dir=`get_arch "${board}"`
+if [ "$soc_dir" == "" ]; then
 soc_dir=`get_soc "${board}"`
+fi
 
 echo "arch_dir: ${arch_dir}, soc_dir: ${soc_dir}"
 
