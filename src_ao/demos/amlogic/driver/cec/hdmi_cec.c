@@ -1931,7 +1931,7 @@ static void cec_node_init(void)
 		return;
 	} else {
 		/* ping dev addr */
-		log_addr = player_dev[idx][sub_idx];
+		log_addr = probe[sub_idx];
 		cec_set_log_addr(log_addr);
 		msg[0] = (log_addr << 4 ) | log_addr;
 		/*printf("%s ping:idx:%d, 0x%x\n", __func__, sub_idx, msg[0]);*/
@@ -1953,7 +1953,7 @@ static void cec_node_init(void)
 			} else if (tx_stat == TX_ERROR) {
 				cec_delay(100);
 				/*address had allocated*/
-				cec_msg.log_addr = player_dev[idx][sub_idx];
+				cec_msg.log_addr = probe[sub_idx];
 				cec_set_log_addr(cec_msg.log_addr);
 				printf("Set log_addr:0x%x,addr0:0x%x\n",
 				       cec_msg.log_addr, cec_get_log_addr());
@@ -1964,7 +1964,7 @@ static void cec_node_init(void)
 				ping_state = 0;
 				return ;
 			} else if (tx_stat == TX_DONE) {
-				printf("TX_DONE sombody takes cec log_addr:0x%x\n", player_dev[idx][sub_idx]);
+				printf("TX_DONE sombody takes cec log_addr:0x%x\n", probe[sub_idx]);
 				#if 0
 				regist_devs |= (1 << dev_idx);
 				retry += (4 - (retry & 0x03));
